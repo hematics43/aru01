@@ -74,7 +74,6 @@
       margin: 15px 0 25px;
     }
 
-    /* === Photo Styling === */
     .photo-wrapper {
       position: relative;
       width: 180px;
@@ -92,7 +91,6 @@
       background-color: #fceaea;
     }
 
-    /* === Spark Animation === */
     .spark {
       position: absolute;
       width: 8px;
@@ -115,7 +113,6 @@
     .spark4 { bottom: 15%; right: 20%; animation-delay: 1.3s; }
     .spark5 { top: 50%; left: 5%; animation-delay: 1.6s; }
 
-    /* === Confetti === */
     .confetti {
       position: absolute;
       width: 10px;
@@ -138,7 +135,6 @@
     .confetti:nth-child(4) { left: 80%; animation-duration: 5.5s; animation-delay: 1.5s; }
     .confetti:nth-child(5) { left: 50%; animation-duration: 6.5s; animation-delay: 0.2s; }
 
-    /* === Slider === */
     .slider-container {
       margin-top: 30px;
       width: 460px;
@@ -187,7 +183,6 @@
       border-radius: 10px;
     }
 
-    /* === Popup Overlay === */
     #popupOverlay {
       position: fixed;
       top: 0;
@@ -232,19 +227,6 @@
       background: rgba(255,255,255,0.3);
       color: #f76c6c;
     }
-
-    /* === Link Styling === */
-    .animated-link {
-      cursor: pointer;
-      transition: color 0.3s ease;
-      color: #f76c6c;
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .animated-link:hover {
-      color: #e94e77;
-    }
   </style>
 </head>
 
@@ -259,6 +241,20 @@
       <div class="spark spark3"></div>
       <div class="spark spark4"></div>
       <div class="spark spark5"></div>
+    </div>
+
+    <!-- Countdown -->
+    <div id="countdown" style="font-size: 1.3rem; margin: 15px 0; color: #e94e77;">
+      ⏳ Counting down to the big day...
+    </div>
+
+    <!-- Language Switcher -->
+    <div style="margin: 15px 0;">
+      <label for="langToggle" style="font-weight: bold; color: #f76c6c;">🌐 Language:</label>
+      <select id="langToggle" style="padding: 5px 10px; border-radius: 8px;">
+        <option value="en">English</option>
+        <option value="hi">हिंदी</option>
+      </select>
     </div>
 
     <h1>Shreyansh is turning <span class="highlight">ONE!</span></h1>
@@ -283,7 +279,6 @@
       <a href="https://maps.app.goo.gl/GEWE9cKcUuo4Jt2e9" class="animated-link" target="_blank">CLICK FOR LOCATION</a>
     </p>
 
-    <!-- Confetti squares -->
     <div class="confetti"></div>
     <div class="confetti"></div>
     <div class="confetti"></div>
@@ -291,7 +286,6 @@
     <div class="confetti"></div>
   </div>
 
-  <!-- Photo Slider -->
   <div class="slider-container" aria-label="Photo gallery of Shreyansh">
     <div class="slider-title">Life Moments</div>
     <div class="photo-slider" tabindex="0">
@@ -307,17 +301,16 @@
       <img src="ARU14.jpeg" alt="Candles on cake" />
       <img src="ARU15.jpeg" alt="Candles on cake" />
       <img src="ARU16.jpeg" alt="Candles on cake" />
-      
     </div>
   </div>
 
-  <!-- Popup -->
   <div id="popupOverlay" role="dialog" aria-modal="true">
     <span class="close-btn" role="button" tabindex="0">&times;</span>
     <img src="" alt="Popup preview" />
   </div>
 
   <script>
+    // Popup viewer
     const sliderImages = document.querySelectorAll('.photo-slider img');
     const popupOverlay = document.getElementById('popupOverlay');
     const popupImage = popupOverlay.querySelector('img');
@@ -353,6 +346,62 @@
         popupOverlay.classList.remove('active');
         document.body.style.overflow = '';
       }
+    });
+
+    // Countdown Timer
+    function updateCountdown() {
+      const eventDate = new Date("2025-07-18T18:00:00");
+      const now = new Date();
+      const diff = eventDate - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").textContent = "🎉 It's Party Time!";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("countdown").textContent =
+        `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s left!`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Language Switcher
+    const langSelect = document.getElementById("langToggle");
+
+    const translations = {
+      en: {
+        title: "Shreyansh is turning ONE!",
+        subtitle: "Come join us as we celebrate the",
+        birthday: "1st Birthday",
+        nameLine: "of our little champ,<br><strong>Shreyansh! 🧸🎈</strong>",
+        footer:
+          "We can't wait to celebrate with you! 💛<br><br>I'm turning one! I'm going to party... then maybe even sleep!<br>Come eat cake, laugh a lot, and have lots of fun!<br>Come for the cake, stay for the delicious food!<br>~Aru",
+      },
+      hi: {
+        title: "श्रेयांश एक साल का हो रहा है!",
+        subtitle: "आइए हमारे साथ मनाइए",
+        birthday: "पहला जन्मदिन",
+        nameLine: "हमारे छोटे से चैंप का,<br><strong>श्रेयांश! 🧸🎈</strong>",
+        footer:
+          "हम आपके साथ जश्न मनाने का इंतज़ार नहीं कर सकते! 💛<br><br>मैं एक साल का हो रहा हूँ! मैं पार्टी करूंगा... फिर शायद सो भी जाऊं!<br>केक खाइए, खूब हँसिए और मज़े करिए!<br>केक के लिए आइए, खाने के लिए रुकिए!<br>~अरु",
+      },
+    };
+
+    function updateLanguage(lang) {
+      document.querySelector("h1").innerHTML = translations[lang].title;
+      document.querySelector(".subtitle").textContent = translations[lang].subtitle;
+      document.querySelector(".highlight").innerHTML = translations[lang].birthday;
+      document.querySelectorAll("p")[2].innerHTML = translations[lang].nameLine;
+      document.querySelector(".footer").innerHTML = translations[lang].footer;
+    }
+
+    langSelect.addEventListener("change", () => {
+      updateLanguage(langSelect.value);
     });
   </script>
 
