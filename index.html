@@ -6,6 +6,32 @@
   <title>Shreyansh's 1st Birthday Invitation</title>
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet" />
   <style>
+    /* Background floating sparks */
+.background-spark {
+  position: fixed;
+  bottom: -10px;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle at center, #fff9c4 60%, #f76c6c 100%);
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: spark-float linear infinite;
+  filter: drop-shadow(0 0 2px #f76c6c);
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes spark-float {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
     /* === Base Styles === */
     body {
       margin: 0;
@@ -231,6 +257,12 @@
 </head>
 
 <body>
+  <div class="background-spark" style="left: 15%; animation-duration: 7s; animation-delay: 0s;"></div>
+<div class="background-spark" style="left: 35%; animation-duration: 5s; animation-delay: 2s;"></div>
+<div class="background-spark" style="left: 55%; animation-duration: 6.5s; animation-delay: 1s;"></div>
+<div class="background-spark" style="left: 75%; animation-duration: 8s; animation-delay: 3s;"></div>
+<div class="background-spark" style="left: 85%; animation-duration: 6s; animation-delay: 4s;"></div>
+
   <div class="container">
     <div class="balloons">🎉🎈🧸🎈🎉</div>
 
@@ -388,25 +420,21 @@
         birthday: "पहला जन्मदिन",
         nameLine: "हमारे छोटे से चैंप का,<br><strong>श्रेयांश! 🧸🎈</strong>",
         footer:
-          "हम आपके साथ जश्न मनाने का इंतज़ार नहीं कर सकते! 💛<br><br>मैं एक साल का हो रहा हूँ! मैं पार्टी करूंगा... फिर शायद सो भी जाऊं!<br>केक खाइए, खूब हँसिए और मज़े करिए!<br>केक के लिए आइए, खाने के लिए रुकिए!<br>~अरु",
+          "हम आपके साथ जश्न मनाने के लिए इंतजार नहीं कर सकते! 💛<br><br>मैं एक साल का होने वाला हूँ! मैं पार्टी करने जा रहा हूँ... फिर शायद सो जाऊंगा!<br>केक खाएं, खूब हँसें, और खूब मज़ा करें!<br>केक के लिए आएं, स्वादिष्ट भोजन के लिए रहें!<br>~अऱु",
       },
     };
 
     function updateLanguage(lang) {
-      document.querySelector("h1").innerHTML = translations[lang].title;
-      document.querySelector(".subtitle").textContent = translations[lang].subtitle;
-      document.querySelector(".highlight").innerHTML = translations[lang].birthday;
-      document.querySelectorAll("p")[2].innerHTML = translations[lang].nameLine;
-      document.querySelector(".footer").innerHTML = translations[lang].footer;
+      document.querySelector('h1').innerHTML = translations[lang].title.replace("ONE", '<span class="highlight">ONE!</span>').replace("एक साल का हो रहा है!", '<span class="highlight">एक साल का हो रहा है!</span>');
+      document.querySelector('.subtitle').innerHTML = translations[lang].subtitle;
+      document.querySelector('.highlight').innerHTML = translations[lang].birthday;
+      document.querySelectorAll('p')[1].innerHTML = translations[lang].nameLine;
+      document.querySelector('.footer').innerHTML = translations[lang].footer;
     }
 
-    langSelect.addEventListener("change", () => {
-      updateLanguage(langSelect.value);
+    langSelect.addEventListener('change', e => {
+      updateLanguage(e.target.value);
     });
   </script>
-
-  <footer style="text-align:center; font-size: 0.9rem; color: #888; margin-top: 30px; font-family: Arial, sans-serif;">
-    Developed by <a href="https://www.instagram.com/mathemantics43" target="_blank" rel="noopener" style="color:#f76c6c;"><b>Hemant Gavde</b></a>
-  </footer>
 </body>
 </html>
